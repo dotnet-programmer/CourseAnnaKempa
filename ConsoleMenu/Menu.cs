@@ -3,14 +3,14 @@
 internal static class Menu
 {
 	private static readonly string[] _menuPositions =
-	{
+	[
 		"1 - Wydajność if else i switch case",
 		"2 - String and StringBuilder",
 		"3 - Data i czas",
 		"4 - Zegarek",
 		"Opcja 5",
 		"Koniec",
-	};
+	];
 
 	private static int _activeMenuPosition = 0;
 

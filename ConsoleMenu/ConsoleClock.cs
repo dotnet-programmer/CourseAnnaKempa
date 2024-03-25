@@ -40,7 +40,7 @@ internal static class ConsoleClock
 
 	private static void Clock(string time)
 	{
-		int digit = 0;
+		int digit;
 		for (int i = 0; i < 7; i++)
 		{
 			Console.SetCursorPosition((Console.WindowWidth / 2) - _timeHalfWidth, (Console.WindowHeight / 2) - _timeHalfHeight + i);
