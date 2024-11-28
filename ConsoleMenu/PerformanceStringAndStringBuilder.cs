@@ -5,15 +5,18 @@ namespace ConsoleMenu;
 
 internal static class PerformanceStringAndStringBuilder
 {
-	private const int _iterations = 150_000;
+	private const int Iterations = 150_000;
 
 	public static void TestMethod()
 	{
 		long timeString = TestString();
-		long timeStringBuilder = TestStringBuilder();
+		long timeStringBuilderWithString = TestStringBuilderWithString();
+		long timeStringBuilderWithChar = TestStringBuilderWithChar();
+
 		Console.WriteLine($"String: {timeString}");
-		Console.WriteLine($"StringBuilder: {timeStringBuilder}");
-		Console.WriteLine($"String / StringBuilder: {timeString / timeStringBuilder}");
+		Console.WriteLine($"StringBuilder with string: {timeStringBuilderWithString}");
+		Console.WriteLine($"StringBuilder with char: {timeStringBuilderWithChar}");
+		Console.WriteLine($"String / StringBuilderWithChar: {timeString / timeStringBuilderWithChar}");
 		Console.ReadLine();
 	}
 
@@ -21,7 +24,7 @@ internal static class PerformanceStringAndStringBuilder
 	{
 		Stopwatch stopwatch = Stopwatch.StartNew();
 		string text = string.Empty;
-		for (int i = 0; i < _iterations; i++)
+		for (int i = 0; i < Iterations; i++)
 		{
 			text += "A";
 		}
@@ -29,11 +32,23 @@ internal static class PerformanceStringAndStringBuilder
 		return stopwatch.ElapsedTicks;
 	}
 
-	private static long TestStringBuilder()
+	private static long TestStringBuilderWithString()
 	{
 		Stopwatch stopwatch = Stopwatch.StartNew();
 		StringBuilder text = new();
-		for (int i = 0; i < _iterations; i++)
+		for (int i = 0; i < Iterations; i++)
+		{
+			text.Append("A");
+		}
+		stopwatch.Stop();
+		return stopwatch.ElapsedTicks;
+	}
+
+	private static long TestStringBuilderWithChar()
+	{
+		Stopwatch stopwatch = Stopwatch.StartNew();
+		StringBuilder text = new();
+		for (int i = 0; i < Iterations; i++)
 		{
 			text.Append('A');
 		}

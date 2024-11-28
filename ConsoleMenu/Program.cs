@@ -2,4 +2,4 @@
 
 SimpleMenu.StartSimpleMenu();
 
-//Menu.StartMenu();
+Menu.StartMenu();

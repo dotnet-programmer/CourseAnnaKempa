@@ -3,14 +3,16 @@
 internal static class Menu
 {
 	private static readonly string[] _menuPositions =
-	[
-		"1 - Wydajność if else i switch case",
-		"2 - String and StringBuilder",
-		"3 - Data i czas",
-		"4 - Zegarek",
-		"Opcja 5",
-		"Koniec",
-	];
+		[
+			"1 - Wydajność if else i switch case",
+			"2 - String and StringBuilder",
+			"3 - Data i czas",
+			"4 - Zegarek",
+			"Opcja 5",
+			"Koniec",
+		];
+
+	private static readonly int _lastMenuPosition = _menuPositions.Length - 1;
 
 	private static int _activeMenuPosition = 0;
 
@@ -18,6 +20,7 @@ internal static class Menu
 	{
 		Console.Title = "Tytuł konsoli";
 		Console.CursorVisible = false;
+
 		while (true)
 		{
 			ShowMenu();
@@ -28,55 +31,75 @@ internal static class Menu
 
 	private static void ShowMenu()
 	{
-		Console.BackgroundColor = ConsoleColor.Gray;
-		Console.Clear();
-		Console.ForegroundColor = ConsoleColor.DarkCyan;
-		Console.WriteLine(">>> MENU <<<");
-		Console.WriteLine();
+		SetDefaultColors();
+		ShowHeader();
+		ShowPositions();
 
-		for (int i = 0; i < _menuPositions.Length; i++)
+		static void ShowHeader()
 		{
-			if (i == _activeMenuPosition)
+			Console.Clear();
+			Console.WriteLine(">>> MENU <<<");
+			Console.WriteLine();
+		}
+
+		static void ShowPositions()
+		{
+			for (int i = 0; i < _menuPositions.Length; i++)
 			{
-				Console.BackgroundColor = ConsoleColor.DarkCyan;
-				Console.ForegroundColor = ConsoleColor.White;
-				Console.WriteLine($"{_menuPositions[i],-20}");
-				Console.BackgroundColor = ConsoleColor.Gray;
-				Console.ForegroundColor = ConsoleColor.DarkCyan;
-			}
-			else
-			{
-				Console.WriteLine(_menuPositions[i]);
+				if (i == _activeMenuPosition)
+				{
+					SetActivePositionColors();
+					Console.WriteLine($"{_menuPositions[i],-40}");
+					SetDefaultColors();
+				}
+				else
+				{
+					Console.WriteLine(_menuPositions[i]);
+				}
 			}
 		}
 	}
 
+	private static void SetDefaultColors()
+	{
+		Console.BackgroundColor = ConsoleColor.Gray;
+		Console.ForegroundColor = ConsoleColor.DarkCyan;
+	}
+
+	private static void SetActivePositionColors()
+	{
+		Console.BackgroundColor = ConsoleColor.DarkCyan;
+		Console.ForegroundColor = ConsoleColor.White;
+	}
+
 	private static void SetOption()
 	{
-		do
+		while (true)
 		{
 			ConsoleKeyInfo clickedKey = Console.ReadKey();
 
 			if (clickedKey.Key == ConsoleKey.UpArrow)
 			{
-				_activeMenuPosition = (_activeMenuPosition > 0) ? _activeMenuPosition - 1 : _menuPositions.Length - 1;
+				_activeMenuPosition = (_activeMenuPosition > 0) ? _activeMenuPosition - 1 : _lastMenuPosition;
 				ShowMenu();
 			}
 			else if (clickedKey.Key == ConsoleKey.DownArrow)
 			{
-				_activeMenuPosition = (_activeMenuPosition < _menuPositions.Length - 1) ? _activeMenuPosition + 1 : 0;
+				//_activeMenuPosition = (_activeMenuPosition < _lastMenuPosition) ? _activeMenuPosition + 1 : 0;
+				// to samo, tylko z użyciem modulo
+				_activeMenuPosition = (_activeMenuPosition + 1) % _menuPositions.Length;
 				ShowMenu();
 			}
 			else if (clickedKey.Key == ConsoleKey.Escape)
 			{
-				_activeMenuPosition = _menuPositions.Length - 1;
+				_activeMenuPosition = _lastMenuPosition;
 				break;
 			}
 			else if (clickedKey.Key == ConsoleKey.Enter)
 			{
 				break;
 			}
-		} while (true);
+		}
 	}
 
 	private static void StartOption()

@@ -6,7 +6,8 @@ internal static class SimpleMenu
 	{
 		Console.Title = "Simple menu";
 
-		while (true)
+		bool isWorking = true;
+		while (isWorking)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.Clear();
@@ -15,7 +16,9 @@ internal static class SimpleMenu
 			Console.WriteLine("2 - String and StringBuilder");
 			Console.WriteLine("3 - Data i czas");
 			Console.WriteLine("4 - Zegarek");
-			Console.WriteLine("5 - Koniec");
+			Console.WriteLine("5 - Pusta opcja");
+			Console.WriteLine("6 - Pokaż drugie Menu");
+			Console.WriteLine("7 - Koniec");
 			Console.Write(">");
 			ConsoleKeyInfo clickedKey = Console.ReadKey();
 			Console.Clear();
@@ -33,8 +36,14 @@ internal static class SimpleMenu
 				case ConsoleKey.D4:
 					ConsoleClock.ShowTime();
 					break;
-				case ConsoleKey.Escape:
 				case ConsoleKey.D5:
+					MethodInConstruction();
+					break;
+				case ConsoleKey.D6:
+					isWorking = false;
+					break;
+				case ConsoleKey.Escape:
+				case ConsoleKey.D7:
 					Environment.Exit(0);
 					break;
 				default:

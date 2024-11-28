@@ -2,8 +2,8 @@
 
 internal static class PerformanceIfAndSwitch
 {
-	private const int MAX = 1_000_000;
-	private static readonly int[] _testArray = new int[MAX];
+	private const int Max = 1_000_000;
+	private static readonly int[] _testArray = new int[Max];
 
 	public static void DoPerformanceTests()
 	{
@@ -15,7 +15,7 @@ internal static class PerformanceIfAndSwitch
 
 	private static void LoadData()
 	{
-		for (int i = 0; i < MAX; i++)
+		for (int i = 0; i < Max; i++)
 		{
 			_testArray[i] = i;
 		}
@@ -23,11 +23,11 @@ internal static class PerformanceIfAndSwitch
 
 	private static void TestIfElse()
 	{
-		int t1, t2, number;
+		int t1, t2, number = 0;
 		t1 = Environment.TickCount;
 		for (int j = 0; j < 100; j++)
 		{
-			for (int i = 0; i < MAX; i++)
+			for (int i = 0; i < Max; i++)
 			{
 				if (_testArray[i] == 0)
 				{
@@ -72,16 +72,16 @@ internal static class PerformanceIfAndSwitch
 			}
 		}
 		t2 = Environment.TickCount;
-		Console.WriteLine($"if else if {t2 - t1}");
+		Console.WriteLine($"if else if = {t2 - t1}, number = {number}");
 	}
 
 	private static void TestSwitch()
 	{
-		int t1, t2, number;
+		int t1, t2, number = 0;
 		t1 = Environment.TickCount;
 		for (int j = 0; j < 100; j++)
 		{
-			for (int i = 0; i < MAX; i++)
+			for (int i = 0; i < Max; i++)
 			{
 				switch (_testArray[i])
 				{
@@ -119,6 +119,6 @@ internal static class PerformanceIfAndSwitch
 			}
 		}
 		t2 = Environment.TickCount;
-		Console.WriteLine($"switch {t2 - t1}");
+		Console.WriteLine($"switch = {t2 - t1}, number = {number}");
 	}
 }
